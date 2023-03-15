@@ -1,6 +1,6 @@
 // select the HTML elements
-const newTodoInput = document.querySelector('#new-todo-input');
-const addTodoButton = document.querySelector('#add-todo-button');
+const newTodoInput = document.querySelector('#new-todo');
+const addTodoButton = document.querySelector('#add-todo');
 const todoList = document.querySelector('#todo-list');
 
 // add event listener to the "Add" button
