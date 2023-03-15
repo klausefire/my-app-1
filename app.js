@@ -51,6 +51,13 @@ function addTodo() {
 
         // add the to-do item to the todo-list ul element
         todoList.appendChild(todoItem);
+        // add a class to newly create li
+        todoItem.classList.add('new-todo-item'); 
+
+        // add the show class after a short delay
+        setTimeout(function() {
+            todoItem.classList.add('show');
+        }, 10);
 
         // clear the new to-do input
         newTodoInput.value = '';
