@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>To-Do List App</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<header>
-		<h1>To-Do List App</h1>
-	</header>
-	<main>
-		<ul id="todo-list">
-			<!-- to-do items will be added dynamically here -->
-		</ul>
-	</main>
-	<footer>
-		<input type="text" id="new-todo" placeholder="Add a to-do...">
-		<button id="add-todo">Add</button>
-	</footer>
-	<script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1 id="greeting-text"></h1>
+      <div class="credit-text">made by james_labdesign @Fiverr.com</div>
+    </header>
+    <main>
+      <!-- To-Do List content here -->
+      <ul id="todo-list">
+      <!-- to-do items will be added dynamically here -->
+      </ul>
+    </main>
+    <footer>
+      <input type="text" id="new-todo" placeholder="Add something you plan to do today...">
+      <button id="add-todo">Add</button>
+    </footer>
+    <div class="photo-credit">
+      Photo by Ian Beckley: <a href="https://www.pexels.com/photo/lake-with-mountain-view-2440021/">https://www.pexels.com/photo/lake-with-mountain-view-2440021/</a>
+    </div>
+    <script src="app.js"></script>
+
+    <script>
+      const greetingText = document.querySelector('#greeting-text');
+
+      function updateGreeting() {
+        const now = new Date();
+        const hour = now.getHours();
+        let greeting = '';
+
+        if (hour < 12) {
+          greeting = 'Good morning';
+        } else if (hour < 18) {
+          greeting = 'Good afternoon';
+        } else {
+          greeting = 'Good evening';
+        }
+
+        const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const formattedDate = now.toDateString();
+
+        greetingText.textContent = `${greeting}! Today is ${formattedDate}, and the time is ${formattedTime}.`;
+      }
+
+      // Call updateGreeting function when the page loads and every minute
+      updateGreeting();
+      setInterval(updateGreeting, 60000);
+    </script>
+  </body>
 </html>
