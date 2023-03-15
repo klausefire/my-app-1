@@ -1,81 +1,118 @@
+/* Set variables for commonly used colors */
+:root {
+  --main-color: #6c5ce7;
+  --main-color-light: #a29bfe;
+  --main-color-dark: #4834d4;
+}
+
+/* Set box-sizing and reset margins and padding for all elements */
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* Set the font family and background color for the body */
 body {
-	font-family: Helvetica, Arial, sans-serif;
-	background-color: #f5f5f5;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f5f5f5;
 }
 
+/* Style the header */
 header {
-	background-color: #007aff;
-	color: #fff;
-	padding: 20px;
+  background-color: var(--main-color);
+  color: #fff;
+  padding: 20px;
 }
 
 header h1 {
-	font-size: 24px;
-	font-weight: bold;
-	text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 0 var(--main-color-dark);
 }
 
+/* Style the main content area */
 main {
-	margin: 20px;
+  margin: 20px;
 }
 
+/* Style the list of to-do items */
 ul {
-	list-style-type: none;
-	padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 li {
-	background-color: #fff;
-	border-radius: 5px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 10px;
-	margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 li input[type="checkbox"] {
-	margin-right: 10px;
+  margin-right: 10px;
 }
 
 li span {
-	flex-grow: 1;
+  flex-grow: 1;
+  font-size: 18px;
+  color: #333;
+  text-shadow: 1px 1px 0 var(--main-color-light);
 }
 
 li button {
-	background-color: #007aff;
-	border: none;
-	border-radius: 5px;
-	color: #fff;
-	padding: 10px;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
 }
 
+li button:hover {
+  background-color: var(--main-color-light);
+  cursor: pointer;
+}
+
+/* Style completed to-do items */
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Style the footer */
 footer {
-	display: flex;
-	align-items: center;
-	background-color: #f5f5f5;
-	padding: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
 }
 
 footer input[type="text"] {
-	flex-grow: 1;
-	border: none;
-	border-radius: 5px;
-	padding: 10px;
-	margin-right: 10px;
+  flex-grow: 1;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  font-size: 16px;
 }
 
 footer button {
-	background-color: #007aff;
-	border: none;
-	border-radius: 5px;
-	color: #fff;
-	padding: 10px;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+}
+
+footer button:hover {
+  background-color: var(--main-color-light);
+  cursor: pointer;
 }
