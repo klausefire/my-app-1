@@ -1,114 +1,74 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>To-Do List App</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="background-container">
-      
-      <div class="background-image" style="background-image: url('pexels-ian-beckley-2440021.jpg')"></div>
-      <div class="background-image" style="background-image: url('pexels-evgeny-tchebotarev-4101555.jpg')"></div>
-      <div class="background-image" style="background-image: url('pexels-stein-egil-liland-1933316.jpg')"></div>
-      <div class="background-image" style="background-image: url('pexels-tyler-lastovich-633198.jpg')"></div>
-      
-    </div>
-    <header>
-      <h1 id="greeting-text"></h1>
-      <div class="credit-text">porfolilo of james_labdesign @Fiverr.com</div>
-      <div id="current-time"></div>
-    </header>
-    <main>
-      <!-- To-Do List content here -->
-      <ul id="todo-list">
-      <!-- to-do items will be added dynamically here -->
-      </ul>
-    </main>
-    <footer>
-      <input type="text" id="new-todo" placeholder="Add something you plan to do today...">
-      <button id="add-todo">Add</button>
-    </footer>
-    <div class="photo-credit">
-      Photo by Ian Beckley: https://www.pexels.com/photo/lake-with-mountain-view-2440021/
-    </div>
-    
-    <script src="app.js"></script>
+// select the HTML elements
+const newTodoInput = document.querySelector('#new-todo');
+const addTodoButton = document.querySelector('#add-todo');
+const todoList = document.querySelector('#todo-list');
 
-    <script>
-      const greetingText = document.querySelector('#greeting-text');
-      const currentTime = document.querySelector('#current-time');
+// add event listener to the input field
+newTodoInput.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) { // check if Enter key was pressed
+        event.preventDefault(); // prevent form submission
+        addTodo(); // call the addTodo function
+    }
+});
 
-      function updateGreeting() {
-        const now = new Date();
-        const hour = now.getHours();
-        let greeting = '';
+// add event listener to the "Add" button
+addTodoButton.addEventListener('click', addTodo);
 
-        if (hour < 12) {
-          greeting = 'Good morning';
-        } else if (hour < 18) {
-          greeting = 'Good afternoon';
-        } else {
-          greeting = 'Good evening';
-        }
+// function to add a new to-do item
+function addTodo() {
+    // get the new to-do text from the input field
+    const newTodoText = newTodoInput.value.trim();
 
-        //const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const formattedDate = now.toDateString();
+    // check if the new to-do text is not empty
+    if (newTodoText !== '') {
+        // create a new li element for the to-do item
+        const todoItem = document.createElement('li');
 
-        greetingText.textContent = `${greeting}! Today is ${formattedDate}`;
-      }
+        // create a checkbox input element
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
 
-      function updateTime() {
-        const now = new Date();
-        const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        currentTime.textContent = `Current time: ${formattedTime}`;
-      }
+        // create a span element for the to-do text
+        const todoText = document.createElement('span');
+        todoText.textContent = newTodoText;
 
-      // Call updateGreeting function when the page loads and every minute
-      updateGreeting();
-      setInterval(updateGreeting, 60000);
+        // add event listener to the checkbox
+        checkbox.addEventListener('click', function() {
+            todoText.classList.toggle('completed');
+        });
 
-      // Call updateTime function every second
-      updateTime();
-      setInterval(updateTime, 1000);
+        // create a button element to delete the to-do item
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
 
-      // Background random
-      const backgrounds = [
-        {
-          url: 'pexels-ian-beckley-2440021.jpg',
-          owner: 'Photo by Ian Beckley: https://www.pexels.com/photo/lake-with-mountain-view-2440021/'
-        },
-        {
-          url: 'pexels-evgeny-tchebotarev-4101555.jpg',
-          owner: 'Photo by Evgeny Tchebotarev: https://www.pexels.com/photo/photo-of-mountain-under-cloudy-sky-4101555/'
-        },
-        {
-          url: 'pexels-stein-egil-liland-1933316.jpg',
-          owner: 'Photo by stein egil liland: https://www.pexels.com/photo/time-lapse-photo-of-northern-lights-1933316/'
-        },
-        {
-          url: 'pexels-tyler-lastovich-633198.jpg',
-          owner: 'Photo by Tyler Lastovich: https://www.pexels.com/photo/brown-and-white-mountain-633198/'
-        },
-        // add more background photos and owners as needed
-      ];
-      const backgroundImages = document.querySelectorAll('.background-image');
-      let currentIndex = 0;
+        // add the elements to the to-do item li element
+        todoItem.appendChild(checkbox);
+        todoItem.appendChild(todoText);
+        todoItem.appendChild(deleteButton);
 
-      function changeBackground() {
-        // increment the current index and wrap around if necessary
-        currentIndex = (currentIndex + 1) % backgrounds.length;
+        // add event listener to the delete button
+        deleteButton.addEventListener('click', deleteTodo);
 
-        // set the background image and photo credit
-        const currentBackground = backgrounds[currentIndex];
-        for (let i = 0; i < backgroundImages.length; i++) {
-          backgroundImages[i].style.backgroundImage = `url(${currentBackground.url})`;
-        }
-        document.querySelector('.photo-credit').textContent = currentBackground.owner;
-      }
+        // add the to-do item to the todo-list ul element
+        todoList.appendChild(todoItem);
+        // add a class to newly create li
+        todoItem.classList.add('new-todo-item'); 
 
-      // call the changeBackground function every 10 seconds
-      setInterval(changeBackground, 10000);
-    </script>
-  </body>
-</html>
+        // add the show class after a short delay
+        setTimeout(function() {
+            todoItem.classList.add('show');
+        }, 10);
+
+        // clear the new to-do input
+        newTodoInput.value = '';
+    }
+}
+
+// function to delete a to-do item
+function deleteTodo() {
+    // get the parent li element of the delete button
+    const todoItem = this.parentNode;
+
+    // remove the li element from the todo-list ul element
+    todoList.removeChild(todoItem);
+}
